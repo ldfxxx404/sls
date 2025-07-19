@@ -1,10 +1,13 @@
 #include <filesystem>
 #include <iostream>
 #include "typeCheck.hpp"
+#include "filePermission.hpp"
 
 int main(int argc, char *argv[]) {
  
-    check(argc, argv);
+    check_type_of_file(argc, argv);
+    check_file_permission();
+
    
 return 0;
 }
