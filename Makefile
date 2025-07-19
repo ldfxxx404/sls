@@ -1,5 +1,5 @@
 CXX = g++
-CXXFLAGS = -std=c++17 -Wall -Wextra -I./src/include
+CXXFLAGS = -std=c++20 -Wall -Wextra -I./src/include
 SRC_DIR = src
 BUILD_DIR = build
 BIN = $(BUILD_DIR)/sls
