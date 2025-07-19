@@ -4,10 +4,8 @@
 #include "filePermission.hpp"
 
 int main(int argc, char *argv[]) {
- 
-    check_type_of_file(argc, argv);
-    check_file_permission();
 
-   
+    check_type_of_file(argc, argv);
+    
 return 0;
 }

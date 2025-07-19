@@ -1,14 +1,17 @@
-#include <iostream>
 #include "filePermission.hpp"
+#include <iostream>
 #include <filesystem>
 
-void check_file_permission(std::filesystem::perms p)
+void check_file_permission(const std::filesystem::path &path)
 {
     using std::filesystem::perms;
-    auto show = [=](char op, perms perm)
+    auto file_permisson = std::filesystem::status(path).permissions();
+
+    auto show = [file_permisson](char r, perms p)
     {
-        std::cout << (perms::none == (perm & p) ? '-' : op);
+        std::cout << ((file_permisson & p) != perms::none ? r : '-');
     };
+
     show('r', perms::owner_read);
     show('w', perms::owner_write);
     show('x', perms::owner_exec);

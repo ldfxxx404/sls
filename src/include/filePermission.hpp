@@ -1,6 +1,8 @@
-#ifndef FILE_PERMISSION
-#define FILE_PERMISSION
+#ifndef CHECK_FILE_PERMISSION
+#define CHECK_FILE_PERMISSION
 
-void check_file_permission();
+#include <filesystem>
+
+void check_file_permission(const std::filesystem::path &path);
 
 #endif

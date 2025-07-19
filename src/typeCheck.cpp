@@ -5,12 +5,9 @@
 
 std::filesystem::path directoryPath;
 
-
-
 int check_type_of_file(int argc, char *argv[])
 {
-    argc > 1 ? directoryPath = argv[1] : directoryPath = "."; 
-
+    argc > 1 ? directoryPath = argv[1] : directoryPath = ".";
 
     try
     {
@@ -19,19 +16,15 @@ int check_type_of_file(int argc, char *argv[])
 
             std::cout << entry.path().filename() << " ";
 
-            // const auto file_perm = std::filesystem::status(entry.path()).permissions();
-
             if (std::filesystem::is_regular_file(entry.path()))
             {
-
-                std::cout << "\x1B[93m(File)\033[0m" << std::endl;
-                check_file_permission();
+                std::cout << "\x1B[93m(File)\033[0m" << " ";
+                check_file_permission(entry.path());
             }
             else if (std::filesystem::is_directory(entry.path()))
-                check_file_permission();
             {
-
-                std::cout << "\x1B[36m(Directory)\033[0m" << std::endl;
+                std::cout << "\x1B[36m(Directory)\033[0m" << " ";
+                check_file_permission(entry.path());
             }
         }
     }
