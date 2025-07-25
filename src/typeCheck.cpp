@@ -2,6 +2,7 @@
 #include <vector>
 #include <filesystem>
 #include <iostream>
+#include <iomanip>
 #include "filePermission.hpp"
 #include "typeCheck.hpp"
 
@@ -24,20 +25,18 @@ int check_type_of_file(int argc, char *argv[])
 
         for (const auto &entry : entries)
         {
+            std::cout << std::left << std::setw(22) << entry.path().filename();
+
             if (std::filesystem::is_regular_file(entry.path()))
             {
-
-                std::cout << entry.path().filename() << " ";
-                std::cout << "\x1B[93mFile\033[0m" << " ";
-                check_file_permission(entry.path());
+                std::cout << std::left << std::setw(10) << "\x1B[93mFile\033[0m" << " ";
             }
 
             else if (std::filesystem::is_directory(entry.path()))
             {
-                std::cout << entry.path().filename() << " ";
-                std::cout << "\x1B[36mDir\033[0m" << " ";
-                check_file_permission(entry.path());
+                std::cout << std::left << std::setw(10) << "\x1B[36mDir\033[0m" << " ";
             }
+            check_file_permission(entry.path());
         }
     }
 
