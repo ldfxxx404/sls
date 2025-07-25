@@ -1,7 +1,9 @@
-#include "typeCheck.hpp"
+#include <algorithm>
+#include <vector>
 #include <filesystem>
 #include <iostream>
 #include "filePermission.hpp"
+#include "typeCheck.hpp"
 
 std::filesystem::path directoryPath;
 
@@ -11,23 +13,34 @@ int check_type_of_file(int argc, char *argv[])
 
     try
     {
+        std::vector<std::filesystem::directory_entry> entries;
         for (const auto &entry : std::filesystem::directory_iterator(directoryPath))
         {
+            entries.push_back(entry);
+        }
 
-            std::cout << entry.path().filename() << " ";
+        std::sort(entries.begin(), entries.end(), [](const std::filesystem::directory_entry &a, const std::filesystem::directory_entry &b)
+                  { return a.path().filename() < b.path().filename(); });
 
+        for (const auto &entry : entries)
+        {
             if (std::filesystem::is_regular_file(entry.path()))
             {
+
+                std::cout << entry.path().filename() << " ";
                 std::cout << "\x1B[93mFile\033[0m" << " ";
                 check_file_permission(entry.path());
             }
+
             else if (std::filesystem::is_directory(entry.path()))
             {
+                std::cout << entry.path().filename() << " ";
                 std::cout << "\x1B[36mDir\033[0m" << " ";
                 check_file_permission(entry.path());
             }
         }
     }
+
     catch (const std::filesystem::filesystem_error &e)
     {
         std::cerr << "Error: " << e.what() << std::endl;
